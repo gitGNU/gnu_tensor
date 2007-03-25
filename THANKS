@@ -1,0 +1,7 @@
+* Brian Gough <bjg@network-theory.co.uk> for maintaining the GSL,
+providing the gsl_matrix code which this package tries to follow
+closely, and giving feedback with good suggestions.
+
+* Yoshiki Tsunesada <y.tsunesada@kib.biglobe.ne.jp> for finding some
+bugs, pointing some possible improvements and making a Ruby interface
+for this package.

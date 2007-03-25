@@ -1,0 +1,38 @@
+Copyright (C) 2004, 2005, 2007 Jordi Burguet-Castell <jbc@member.fsf.org>
+
+Copying and distribution of this file, with or without modification,
+are permitted in any medium without royalty provided the copyright
+notice and this notice are preserved.
+
+This package  provides a library which is an extension for the
+GNU Scientific Library (GSL). The latest version can be found at
+http://savannah.nongnu.org/projects/tensor/
+
+It allows to define and manipulate tensors, multidimensional arrays of
+any order with the same dimension for every index. Tensors generalize
+vectors and square matrices, and provide powerful functions like
+tensorial product, index contraction and index swapping.
+
+The library interface is very similar to that of gsl_matrix, and most
+of the functions that exist for gsl_matrix are also implemented for
+tensors and have the same syntax.
+
+Its sister project is "marray", which defines a new type similar to tensor
+but with the arbitrary dimension for each index (for matrices, that would
+be rectangular matrices), but without the tensor operations defined. It is
+suited to work with data grids. "marray" can be found at
+http://savannah.nongnu.org/projects/marray/
+
+To install this software you first need the GNU Scientific Library
+(GSL), that you can get from: http://sources.redhat.com/gsl/ . See the
+detailed instructions in the file INSTALL in this same
+directory. Briefly, all you need to do is:
+  ./configure
+  make
+  make install
+(for the last step you may need to be root).
+
+To use this library, compile your program with
+  gcc -o myprog -lgslcblas -lgsl -ltensor myprog.c
+
+That's it. Have fun!
