@@ -32,6 +32,13 @@ directory. Briefly, all you need to do is:
   make install
 (for the last step you may need to be root).
 
+If you took the files directly from the repository, you will need to
+run ./autogen.sh first. That is:
+  ./autogen.sh
+  ./configure
+  make
+  make install
+
 To use this library, compile your program with
   gcc -o myprog -lgslcblas -lgsl -ltensor myprog.c
 
