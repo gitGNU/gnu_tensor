@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 
 AC_INIT
 
-AM_INIT_AUTOMAKE(tensor,0.98)
+AM_INIT_AUTOMAKE(tensor,0.99)
 AM_CONFIG_HEADER(config.h)
 
 AC_PROG_MAKE_SET
