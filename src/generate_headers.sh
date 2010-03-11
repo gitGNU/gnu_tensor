@@ -28,6 +28,14 @@ cp tensor_TYPE.h tensor_ushort.h
 perl -p -i.bak -e "s/NAME/ushort/g" tensor_ushort.h
 perl -p -i.bak -e "s/TYPE/unsigned short/g" tensor_ushort.h
 
+cp tensor_TYPE.h tensor_complex_float.h
+perl -p -i.bak -e "s/NAME/complex_float/g" tensor_complex_float.h
+perl -p -i.bak -e "s/TYPE/complex float/g" tensor_complex_float.h
+
+cp tensor_TYPE.h tensor_complex.h
+perl -p -i.bak -e "s/NAME/complex/g" tensor_complex.h
+perl -p -i.bak -e "s/TYPE/complex double/g" tensor_complex.h
+
 rm *.bak
 
 # To delete:
