@@ -4,7 +4,7 @@
    If BASE is defined we used function names like gsl_BASE_name()
    and use BASE as the base datatype      */
 
-#elif defined(BASE_LONG_DOUBLE)
+#if defined(BASE_LONG_DOUBLE)
 #define BASE long double
 #define SHORT long_double
 #define ATOMIC long double
