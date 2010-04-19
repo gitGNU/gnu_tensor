@@ -64,7 +64,7 @@ FUNCTION(tensor, fwrite) (FILE * stream, const TYPE(tensor) * t)
 #if !(defined(USES_LONGDOUBLE) && !defined(HAVE_PRINTF_LONGDOUBLE))
 int
 FUNCTION(tensor, fprintf) (FILE * stream, const TYPE(tensor) * t,
-				const char *format)
+                           const char *format)
 {
   size_t i;
   size_t n = t->size ;
@@ -75,8 +75,13 @@ FUNCTION(tensor, fprintf) (FILE * stream, const TYPE(tensor) * t,
 
   for (i = 0; i < n; i++)
     {
+#if defined(BASE_COMPLEX_DOUBLE)
+      status = fprintf(stream, format, creal(data[i]));
+      status = putc(' ', stream);
+      status = fprintf(stream, format, cimag(data[i]));
+#else
       status = fprintf(stream, format, data[i]);
-          
+#endif
       if (status < 0)
         {
           GSL_ERROR ("fprintf failed", GSL_EFAILED);
@@ -102,13 +107,22 @@ FUNCTION(tensor, fscanf) (FILE * stream, TYPE(tensor) * t)
 
   ATOMIC * data = t->data;
 
+  int status = 0;
+
   for (i = 0; i < n; i++)
     {
+#if defined(BASE_COMPLEX_DOUBLE)
+      ATOMIC_IO tmp1;
+      ATOMIC_IO tmp2;
+      status = fscanf(stream, IN_FORMAT, &tmp1);
+      status = fscanf(stream, IN_FORMAT, &tmp2);
+      *(&data[i]) = tmp1;
+      *(&(double)data[i]+1) = tmp2;
+#else
       ATOMIC_IO tmp;
-
-      int status = fscanf(stream, IN_FORMAT, &tmp) ;
-
+      status = fscanf(stream, IN_FORMAT, &tmp) ;
       data[i] = tmp;
+#endif
 
       if (status != 1)
         GSL_ERROR ("fscanf failed", GSL_EFAILED);

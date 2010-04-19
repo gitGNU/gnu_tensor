@@ -66,7 +66,7 @@ FUNCTION(tensor, sub) (TYPE(tensor) * a, const TYPE(tensor) * b)
 
 int 
 FUNCTION(tensor, mul_elements) (TYPE(tensor) * a,
-                                    const TYPE(tensor) * b)
+                                const TYPE(tensor) * b)
 {
   const unsigned int rank = a->rank;
   const size_t dimension  = a->dimension;
@@ -90,7 +90,7 @@ FUNCTION(tensor, mul_elements) (TYPE(tensor) * a,
 
 int 
 FUNCTION(tensor, div_elements) (TYPE(tensor) * a,
-                                    const TYPE(tensor) * b)
+                                const TYPE(tensor) * b)
 {
   const unsigned int rank = a->rank;
   const size_t dimension  = a->dimension;
@@ -174,7 +174,7 @@ FUNCTION(tensor, add_diagonal) (TYPE(tensor) * a, const double x)
  */
 TYPE(tensor) *
 FUNCTION(tensor, product) (const TYPE(tensor) * a,
-                               const TYPE(tensor) * b)
+                           const TYPE(tensor) * b)
 {
   size_t i, j;
   size_t n1, n2;
@@ -215,7 +215,7 @@ FUNCTION(tensor, product) (const TYPE(tensor) * a,
  */
 TYPE(tensor) *
 FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
-                                size_t i, size_t j)
+                            size_t i, size_t j)
 {
   size_t dimension;
   size_t n;
@@ -274,7 +274,7 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
   for (pos = 0; pos < n; pos++)
     {
       n_digits = t_ii->rank;  /* we must reset it! */
-      sum = ZERO;
+      sum = 0;
 
       position2index(n_digits, dimension, pos, pos_in_base);
 

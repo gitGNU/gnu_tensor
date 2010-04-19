@@ -22,6 +22,12 @@
 #include <gsl/gsl_math.h>
 #include "tensor.h"
 
+#define BASE_COMPLEX_DOUBLE
+#include "templates_on.h"
+#include "oper_source.c"
+#include "templates_off.h"
+#undef  BASE_COMPLEX_DOUBLE
+
 #define BASE_LONG_DOUBLE
 #include "templates_on.h"
 #include "oper_source.c"

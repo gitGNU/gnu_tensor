@@ -19,7 +19,7 @@ lib_LTLIBRARIES = libtensor.la
 
 libtensor_la_SOURCES = tensor_utilities.c init.c tensor.c file.c swap.c copy.c minmax.c oper.c prop.c
 
-pkginclude_HEADERS = tensor.h tensor_char.h tensor_double.h tensor_float.h tensor_int.h tensor_long.h tensor_long_double.h tensor_short.h tensor_uchar.h tensor_uint.h tensor_ulong.h tensor_ushort.h
+pkginclude_HEADERS = tensor.h tensor_char.h tensor_double.h tensor_float.h tensor_int.h tensor_long.h tensor_long_double.h tensor_short.h tensor_uchar.h tensor_uint.h tensor_ulong.h tensor_ushort.h tensor_complex_double.h
 
 
 check_PROGRAMS = test test_static

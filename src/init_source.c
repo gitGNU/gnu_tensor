@@ -139,7 +139,7 @@ FUNCTION (tensor, 2matrix) (TYPE (tensor) * t)
   TYPE(gsl_matrix) * m;
 
   if (t->rank != 2)
-    GSL_ERROR_NULL("tensors of rank != 2", GSL_EINVAL);
+    GSL_ERROR_NULL("tensor of rank != 2", GSL_EINVAL);
 
 
   m = (TYPE (gsl_matrix) *) malloc (sizeof (TYPE (gsl_matrix)));
@@ -147,7 +147,11 @@ FUNCTION (tensor, 2matrix) (TYPE (tensor) * t)
     GSL_ERROR_VAL ("failed to allocate space for matrix struct",
                    GSL_ENOMEM, 0);
 
+#if defined(BASE_COMPLEX_DOUBLE)
+  m->data = (double *) t->data;
+#else
   m->data = t->data;
+#endif
   m->size1 = n;
   m->size2 = n;
   m->tda = n;
@@ -168,7 +172,7 @@ FUNCTION (tensor, 2vector) (TYPE (tensor) * t)
   TYPE(gsl_vector) * v;
 
   if (t->rank != 1)
-    GSL_ERROR_NULL("tensors of rank != 1", GSL_EINVAL);
+    GSL_ERROR_NULL("tensor of rank != 1", GSL_EINVAL);
 
 
   v = (TYPE (gsl_vector) *) malloc (sizeof (TYPE (gsl_vector)));
@@ -176,7 +180,11 @@ FUNCTION (tensor, 2vector) (TYPE (tensor) * t)
     GSL_ERROR_VAL ("failed to allocate space for vector struct",
                    GSL_ENOMEM, 0);
 
+#if defined(BASE_COMPLEX_DOUBLE)
+  v->data = (double *) t->data;
+#else
   v->data = t->data;
+#endif
   v->size = n;
   v->stride = 1;
   v->block = NULL;  /* note that this is no problem because owner=0 */
