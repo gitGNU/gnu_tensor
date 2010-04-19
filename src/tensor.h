@@ -19,10 +19,6 @@
 #ifndef __TENSOR_H__
 #define __TENSOR_H__
 
-/* #include "tensor_complex_long_double.h" */
-/* #include "tensor_complex_double.h" */
-/* #include "tensor_complex_float.h" */
-
 #include "tensor_long_double.h"
 #include "tensor_double.h"
 #include "tensor_float.h"

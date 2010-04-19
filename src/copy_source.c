@@ -54,14 +54,13 @@ FUNCTION (tensor, swap) (TYPE (tensor) * t1, TYPE (tensor) * t2)
     size_t n = t1->size;
 
     for (i = 0; i < n; i++)
-      for (j = 0; j < MULTIPLICITY; j++)
-	{
-	  ATOMIC tmp = t1->data[MULTIPLICITY * i + j];
+      {
+        ATOMIC tmp = t1->data[i];
 	  
-	  t1->data[MULTIPLICITY * i + j] = t2->data[MULTIPLICITY * i + j];
+        t1->data[i] = t2->data[i];
 
-	  t2->data[MULTIPLICITY * i + j] = tmp ;
-	}
+        t2->data[i] = tmp;
+      }
   }
 
   return GSL_SUCCESS;

@@ -53,7 +53,7 @@ FUNCTION(tensor, alloc) (const unsigned int rank, const size_t dimension)
 		     GSL_ENOMEM, 0);
     }
 
-  n = MULTIPLICITY * quick_pow(dimension, rank);
+  n = quick_pow(dimension, rank);
   t->data = (ATOMIC *) malloc (n * sizeof (ATOMIC));
 
   if (t->data == 0)
@@ -204,7 +204,7 @@ FUNCTION(tensor, set_zero) (TYPE(tensor) * t)
 
   for (i = 0; i < n; i++)
     {
-      *(BASE *) (data + MULTIPLICITY * i) = 0;
+      *(BASE *) (data + i) = 0;
     }
 }
 
@@ -219,6 +219,6 @@ FUNCTION(tensor, set_all) (TYPE(tensor) * t, BASE x)
   ATOMIC * const data = t->data;
 
   n = t->size;
-  for (i = 0; i < n; i += MULTIPLICITY)
-    *(BASE *) (data + MULTIPLICITY * i) = x;
+  for (i = 0; i < n; i ++)
+    *(BASE *) (data + i) = x;
 }

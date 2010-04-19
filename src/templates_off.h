@@ -76,7 +76,6 @@
 #undef BASE_EPSILON
 #undef SHORT
 #undef ATOMIC
-#undef MULTIPLICITY
 #undef IN_FORMAT
 #undef OUT_FORMAT
 #undef ATOMIC_IO

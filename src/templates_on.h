@@ -4,52 +4,11 @@
    If BASE is defined we used function names like gsl_BASE_name()
    and use BASE as the base datatype      */
 
-#if   defined(BASE_GSL_COMPLEX_LONG)
-#define BASE gsl_complex_long_double
-#define SHORT complex_long_double
-#define SHORT_REAL long_double
-#define ATOMIC long double
-#define USES_LONGDOUBLE 1
-#define MULTIPLICITY 2
-#define IN_FORMAT "%Lg"
-#define OUT_FORMAT "%Lg"
-#define ATOMIC_IO ATOMIC
-#define ZERO {{0.0L,0.0L}}
-#define ONE {{1.0L,0.0L}}
-#define BASE_EPSILON GSL_DBL_EPSILON
-
-#elif defined(BASE_GSL_COMPLEX)
-#define BASE gsl_complex
-#define SHORT complex
-#define SHORT_REAL
-#define ATOMIC double
-#define MULTIPLICITY 2
-#define IN_FORMAT "%lg"
-#define OUT_FORMAT "%g"
-#define ATOMIC_IO ATOMIC
-#define ZERO {{0.0,0.0}}
-#define ONE {{1.0,0.0}}
-#define BASE_EPSILON GSL_DBL_EPSILON
-
-#elif defined(BASE_GSL_COMPLEX_FLOAT)
-#define BASE gsl_complex_float
-#define SHORT complex_float
-#define SHORT_REAL float
-#define ATOMIC float
-#define MULTIPLICITY 2
-#define IN_FORMAT "%g"
-#define OUT_FORMAT "%g"
-#define ATOMIC_IO ATOMIC
-#define ZERO {{0.0F,0.0F}}
-#define ONE {{1.0F,0.0F}}
-#define BASE_EPSILON GSL_FLT_EPSILON
-
 #elif defined(BASE_LONG_DOUBLE)
 #define BASE long double
 #define SHORT long_double
 #define ATOMIC long double
 #define USES_LONGDOUBLE 1
-#define MULTIPLICITY 1
 #define IN_FORMAT "%Lg"
 #define OUT_FORMAT "%Lg"
 #define ATOMIC_IO ATOMIC
@@ -61,7 +20,6 @@
 #define BASE double
 #define SHORT
 #define ATOMIC double
-#define MULTIPLICITY 1
 #define IN_FORMAT "%lg"
 #define OUT_FORMAT "%g"
 #define ATOMIC_IO ATOMIC
@@ -73,7 +31,6 @@
 #define BASE float
 #define SHORT float
 #define ATOMIC float
-#define MULTIPLICITY 1
 #define IN_FORMAT "%g"
 #define OUT_FORMAT "%g"
 #define ATOMIC_IO ATOMIC
@@ -85,7 +42,6 @@
 #define BASE unsigned long
 #define SHORT ulong
 #define ATOMIC unsigned long
-#define MULTIPLICITY 1
 #define IN_FORMAT "%lu"
 #define OUT_FORMAT "%lu"
 #define ATOMIC_IO ATOMIC
@@ -96,7 +52,6 @@
 #define BASE long
 #define SHORT long
 #define ATOMIC long
-#define MULTIPLICITY 1
 #define IN_FORMAT "%ld"
 #define OUT_FORMAT "%ld"
 #define ATOMIC_IO ATOMIC
@@ -107,7 +62,6 @@
 #define BASE unsigned int
 #define SHORT uint
 #define ATOMIC unsigned int
-#define MULTIPLICITY 1
 #define IN_FORMAT "%u"
 #define OUT_FORMAT "%u"
 #define ATOMIC_IO ATOMIC
@@ -118,7 +72,6 @@
 #define BASE int
 #define SHORT int
 #define ATOMIC int
-#define MULTIPLICITY 1
 #define IN_FORMAT "%d"
 #define OUT_FORMAT "%d"
 #define ATOMIC_IO ATOMIC
@@ -129,7 +82,6 @@
 #define BASE unsigned short
 #define SHORT ushort
 #define ATOMIC unsigned short
-#define MULTIPLICITY 1
 #define IN_FORMAT "%hu"
 #define OUT_FORMAT "%hu"
 #define ATOMIC_IO ATOMIC
@@ -140,7 +92,6 @@
 #define BASE short
 #define SHORT short
 #define ATOMIC short
-#define MULTIPLICITY 1
 #define IN_FORMAT "%hd"
 #define OUT_FORMAT "%hd"
 #define ATOMIC_IO ATOMIC
@@ -151,7 +102,6 @@
 #define BASE unsigned char
 #define SHORT uchar
 #define ATOMIC unsigned char
-#define MULTIPLICITY 1
 #define IN_FORMAT "%u"
 #define OUT_FORMAT "%u"
 #define ATOMIC_IO unsigned int
@@ -162,7 +112,6 @@
 #define BASE char
 #define SHORT char
 #define ATOMIC char
-#define MULTIPLICITY 1
 #define IN_FORMAT "%d"
 #define OUT_FORMAT "%d"
 #define ATOMIC_IO int

@@ -55,7 +55,7 @@ FUNCTION(tensor, get) (const TYPE (tensor) * t, const size_t * indices)
     if (position >= t->size)
       GSL_ERROR_VAL("index out of range", GSL_EINVAL, 0);
 
-  return *(BASE *) (t->data + MULTIPLICITY * position);
+  return *(BASE *) (t->data + position);
 }
 
 
@@ -70,7 +70,7 @@ FUNCTION(tensor, set) (TYPE (tensor) * t,
     if (position >= t->size)
       GSL_ERROR_VOID("index out of range", GSL_EINVAL);
 
-  *(BASE *) (t->data + MULTIPLICITY * position) = x;
+  *(BASE *) (t->data + position) = x;
 }
 
 
@@ -84,7 +84,7 @@ FUNCTION(tensor, ptr) (TYPE (tensor) * t, const size_t * indices)
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);
 
-  return (BASE *) (t->data + MULTIPLICITY * position);
+  return (BASE *) (t->data + position);
 }
 
 
@@ -99,7 +99,7 @@ FUNCTION(tensor, const_ptr) (const TYPE (tensor) * t,
     if (position >= t->size)
       GSL_ERROR_NULL("index out of range", GSL_EINVAL);
 
-  return (const BASE *) (t->data + MULTIPLICITY * position);
+  return (const BASE *) (t->data + position);
 }
 
 #endif
