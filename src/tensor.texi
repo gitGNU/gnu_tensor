@@ -14,10 +14,10 @@
 
 @iftex
 @copying
-Copyright @copyright{} 2004 Jordi Burguet-Castell.
+Copyright @copyright{} 2004-2010 Jordi Burguet-Castell.
 
 Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2
+under the terms of the GNU Free Documentation License, Version 1.3
 or any later version published by the Free Software Foundation;
 with no Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts.
 A copy of the license is included in the section entitled "GNU
@@ -32,8 +32,7 @@ Free Documentation License".
 @subtitle @value{UPDATED}
 
 @author Jordi Burguet-Castell
-Network Theory Limited
-@comment @email{burget@@cern.ch}
+@email{jbc@@member.fsf.org}
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -99,11 +98,72 @@ to 0
 example program goes here
 
 @example
-#include <...>
+#include <gsl/gsl.h>
+#include <tensor.h>
 
-int main (void) 
+#define RANK 3
+#define DIMENSION 5
+
+
+int main (void)
 @{
-...
+  size_t i, j, k;     /* tensor indices */
+  size_t indices[3];  /* to pass tensor indices */
+
+  /* Allocate space for the tensors */
+  tensor * a = tensor_calloc (RANK, DIMENSION);
+  tensor * b = tensor_calloc (RANK, DIMENSION);
+  tensor * t = tensor_calloc (RANK, DIMENSION);
+
+  /* Fill them */
+  for (i = 0; i < DIMENSION; i++)
+    {
+      for (j = 0; j < DIMENSION; j++)
+        {
+          for (k = 0; k < DIMENSION; k++)
+            {
+              counter++;
+              indices[0] = i;  indices[1] = j;  indices[2] = k;
+              tensor_set (a, indices, 3 + i + 5 * j + 2 * k);
+              tensor_set (b, indices, 3 + 2 * i + 4 * j + k);
+            }
+        }
+    }
+
+  /*
+   * Do some operations
+   */
+
+  /* Sum */
+  tensor_memcpy (t, a);
+  tensor_add (t, b);     /* t = a + b */
+  tensor_fprintf (stdout, t, "%g");
+
+  /* Element division */
+  tensor_memcpy (t, a);
+  tensor_div_elements (t, b);  /* t = a ./ b */
+  tensor_fprintf (stdout, t, "%g");
+
+  /* Tensor product */
+  {
+    tensor * c = tensor_product (a, b);
+    tensor_fprintf (stdout, c, "%g");
+    tensor_free (c);
+  }
+
+  /* Index contraction */
+  {
+    tensor * tt = tensor_contract (a, 0, 1);
+    tensor_fprintf (stdout, tt, "%g");
+    tensor_free (tt);
+  }
+
+  tensor_free (a);
+  tensor_free (b);
+
+  tensor_free (t);
+
+  return 0;
 @}
 @end example
 
