@@ -62,9 +62,9 @@ under the terms of the GNU Free Documentation License.
 * References and Further Reading::
 * GNU Free Documentation License::
 * Function Index::
-* Variable Index::
-* Type Index::
-* Concept Index::
+@c * Variable Index::
+@c * Type Index::
+@c * Concept Index::
 @end menu
 
 @node  Introduction, Functions, Top, Top
@@ -79,27 +79,187 @@ The header file is @file{tensor.h}.
 @node Functions, Examples, Introduction, Top
 @chapter Functions
 
+The functions @code{tensor_f} work with elements of type @code{double}.
+
+There are other versions of the form @code{tensor_TYPE_f} where @code{TYPE} is any of:
+@itemize
+@item complex: complex double
+@item long_double: long double
+@item float: float
+@item ulong: unsigned long
+@item long: long
+@item uint: unsigned int
+@item int: int
+@item ushort: unsigned short
+@item short: short
+@item uchar: unsigned char
+@item char: char
+@end itemize
+
 Allocation
 
-@deftypefun tensor* tensor_alloc (const unsigned int @var{rank}, const size_t @var{dimension})
-allocate memory for a tensor of rank @var{rank} and dimension
-@var{dimension}, and returns a pointer to its position in memory.
+@deftypefun tensor * tensor_alloc (const unsigned int @var{rank}, const size_t @var{dimension});
+Allocate memory for a tensor of rank @var{rank} and dimension
+@var{dimension}, and return a pointer to its position in memory.
 @end deftypefun
 
-@deftypefun tensor* tensor_calloc (const unsigned int @var{rank}, const size_t @var{dimension})
-allocate memory for a tensor and sets all its elements to 0
+@deftypefun tensor * tensor_calloc (const unsigned int @var{rank}, const size_t @var{dimension});
+Allocate memory for a tensor of rank @var{rank} and dimension
+@var{dimension}, set all its elements to 0 and return a pointer to its
+position in memory.
 @end deftypefun
 
-Copy
-
-@deftypefun int tensor_memcpy (tensor * @var{dest}, const tensor * @var{src})
-to do
+@deftypefun tensor * tensor_copy (tensor * @var{t});
+Create a copy of tensor @var{t} and return a pointer to its position in memory.
 @end deftypefun
 
-@deftypefun int tensor_swap (tensor * @var{t1}, const tensor * @var{t2})
-to do
+@deftypefun void tensor_free (tensor * @var{t});
+Release the memory used by tensor @var{t}.
 @end deftypefun
 
+Conversion
+
+@deftypefun gsl_matrix * tensor_2matrix (tensor * @var{t});
+Convert a rank 2 tensor to a gsl_matrix.
+@end deftypefun
+
+@deftypefun gsl_vector * tensor_2vector (tensor * @var{t});
+Convert a rank 1 tensor to a gsl_vector.
+@end deftypefun
+
+ Get/Set elements
+
+@deftypefun double tensor_get (const tensor * @var{t}, const size_t * @var{indices});
+t[indices]
+@end deftypefun
+
+@deftypefun void tensor_set (tensor * @var{t}, const size_t * @var{indices}, const double @var{x});
+t[indices] = x
+@end deftypefun
+
+  Access pointer
+
+@deftypefun double * tensor_ptr (tensor * @var{t}, const size_t * @var{indices});
+&t[indices]
+@end deftypefun
+
+@deftypefun const double * tensor_const_ptr (const tensor * @var{t}, const size_t * @var{indices});
+&t[indices]  (const pointer)
+@end deftypefun
+
+  Set to a value
+
+@deftypefun void tensor_set_zero (tensor * @var{t});
+t = 0
+@end deftypefun
+
+@deftypefun void tensor_set_all (tensor * @var{t}, double @var{x});
+t = x
+@end deftypefun
+
+  IO
+
+@deftypefun int tensor_fread (FILE * @var{stream}, tensor * @var{t});
+Read binary representation of tensor from @var{stream} and save it in @var{t}.
+@end deftypefun
+
+@deftypefun int tensor_fwrite (FILE * @var{stream}, const tensor * @var{t});
+Write binary representation of tensor @var{t} to @var{stream}.
+@end deftypefun
+
+@deftypefun int tensor_fscanf (FILE * @var{stream}, tensor * @var{t});
+Read text representation of tensor from @var{stream} and save it in @var{t}.
+@end deftypefun
+
+@deftypefun int tensor_fprintf (FILE * @var{stream}, const tensor * @var{t}, const char * @var{format});
+Write text representation of tensor @var{t} to @var{stream}, using format @var{format} for its elements.
+@end deftypefun
+
+  Copy
+
+@deftypefun int tensor_memcpy (tensor * @var{dest}, const tensor * @var{src});
+dest = src
+@end deftypefun
+
+@deftypefun int tensor_swap (tensor * @var{t1}, tensor * @var{t2});
+t1, t2 = t2, t1
+@end deftypefun
+
+  Swap indices
+
+@deftypefun tensor * tensor_swap_indices (const tensor * t_@var{ij}, size_t @var{i}, size_t @var{j});
+t[i,j] = t[j,i]
+@end deftypefun
+
+  Maxima
+
+@deftypefun double tensor_max (const tensor * @var{t});
+Maximum element of tensor @var{t}.
+@end deftypefun
+
+@deftypefun double tensor_min (const tensor * @var{t});
+Minimum element of tensor @var{t}.
+@end deftypefun
+
+@deftypefun void tensor_minmax (const tensor * @var{t}, double * min_@var{out}, double * @var{max}_out);
+Copy the minimum and maximum elements of @var{t} in min_@var{out} and @var{max}_out respectively.
+@end deftypefun
+
+@deftypefun void tensor_max_index (const tensor * @var{t}, size_t * @var{indices});
+Get the indices of the maximum element of @var{t}.
+@end deftypefun
+
+@deftypefun void tensor_min_index (const tensor * @var{t}, size_t * @var{indices});
+Get the indices of the minimum element of @var{t}.
+@end deftypefun
+
+@deftypefun void tensor_minmax_index (const tensor * @var{t}, size_t * @var{imin}, size_t * @var{imax});
+Get the indices of the minimum and maximum elements of @var{t}.
+@end deftypefun
+
+  Properties
+
+@deftypefun int tensor_isnull (const tensor * @var{t});
+t == 0
+@end deftypefun
+
+  Operations
+
+@deftypefun int tensor_add (tensor * @var{a}, const tensor * @var{b});
+a += b
+@end deftypefun
+
+@deftypefun int tensor_sub (tensor * @var{a}, const tensor * @var{b});
+a -= b
+@end deftypefun
+
+@deftypefun int tensor_mul_elements (tensor * @var{a}, const tensor * @var{b});
+a .*= b
+@end deftypefun
+
+@deftypefun int tensor_div_elements (tensor * @var{a}, const tensor * @var{b});
+a ./= b
+@end deftypefun
+
+@deftypefun int tensor_scale (tensor * @var{a}, const double @var{x});
+a *= x
+@end deftypefun
+
+@deftypefun int tensor_add_constant (tensor * @var{a}, const double @var{x});
+a += x
+@end deftypefun
+
+@deftypefun int tensor_add_diagonal (tensor * @var{a}, const double @var{x});
+a += x*I
+@end deftypefun
+
+@deftypefun tensor * tensor_product (const tensor * @var{a}, const tensor * @var{b});
+a * b  (generalization of matrix product)
+@end deftypefun
+
+@deftypefun tensor * tensor_contract (const tensor * @var{t}_ij, size_t @var{i}, size_t @var{j});
+t[i1,i2,i3,...] with indices i=j.
+@end deftypefun
 
 @node Examples, References and Further Reading, Functions, Top
 @chapter Examples
@@ -183,23 +343,24 @@ Any references
 @unnumbered GNU Free Documentation License
 @include fdl-1.3.texi
 
-@node Function Index, Variable Index, GNU Free Documentation License, Top
+@node Function Index,  , GNU Free Documentation License, Top
 @unnumbered Function Index
 
 @printindex fn
 
-@node Variable Index, Type Index, Function Index, Top
-@unnumbered Variable Index
+@c @node Variable Index, Type Index, Function Index, Top
+@c @unnumbered Variable Index
+@c
+@c @printindex vr
 
-@printindex vr
+@c @node Type Index, Concept Index, Variable Index, Top
+@c @unnumbered Type Index
+@c
+@c @printindex tp
+@c
+@c @node Concept Index,  , Type Index, Top
+@c @unnumbered Concept Index
+@c
+@c @printindex cp
 
-@node Type Index, Concept Index, Variable Index, Top
-@unnumbered Type Index
-
-@printindex tp
-
-@node Concept Index,  , Type Index, Top
-@unnumbered Concept Index
-
-@printindex cp
 @bye

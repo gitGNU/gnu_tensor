@@ -32,4 +32,4 @@ perl -p -i.bak -e "s/TYPE/unsigned short/g" tensor_ushort.h
 rm *.bak
 
 # To delete:
-# rm `\ls -1 tensor_*.h | grep -v double.h | grep -v TYPE | grep -v utili`
+# rm `\ls -1 tensor_*.h | grep -v double.h | grep -v complex | grep -v TYPE | grep -v utili`
