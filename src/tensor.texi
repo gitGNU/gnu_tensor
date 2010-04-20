@@ -31,8 +31,7 @@ Free Documentation License".
 @subtitle Version @value{VERSION}
 @subtitle @value{UPDATED}
 
-@author Jordi Burguet-Castell
-@email{jbc@@member.fsf.org}
+@author Jordi Burguet-Castell (@email{jbc@@member.fsf.org})
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -95,8 +94,6 @@ to 0
 @node Examples, References and Further Reading, Functions, Top
 @chapter Examples
 
-example program goes here
-
 @example
 #include <gsl/gsl.h>
 #include <tensor.h>
@@ -117,18 +114,18 @@ int main (void)
 
   /* Fill them */
   for (i = 0; i < DIMENSION; i++)
-    {
+    @{
       for (j = 0; j < DIMENSION; j++)
-        {
+        @{
           for (k = 0; k < DIMENSION; k++)
-            {
+            @{
               counter++;
               indices[0] = i;  indices[1] = j;  indices[2] = k;
               tensor_set (a, indices, 3 + i + 5 * j + 2 * k);
               tensor_set (b, indices, 3 + 2 * i + 4 * j + k);
-            }
-        }
-    }
+            @}
+        @}
+    @}
 
   /*
    * Do some operations
@@ -145,18 +142,18 @@ int main (void)
   tensor_fprintf (stdout, t, "%g");
 
   /* Tensor product */
-  {
+  @{
     tensor * c = tensor_product (a, b);
     tensor_fprintf (stdout, c, "%g");
     tensor_free (c);
-  }
+  @}
 
   /* Index contraction */
-  {
+  @{
     tensor * tt = tensor_contract (a, 0, 1);
     tensor_fprintf (stdout, tt, "%g");
     tensor_free (tt);
-  }
+  @}
 
   tensor_free (a);
   tensor_free (b);
