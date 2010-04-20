@@ -41,11 +41,11 @@ Free Documentation License".
 
 @ifnottex
 @node Top, Introduction, (dir), (dir)
-@top TENSOR
+@top tensor
 
-This file documents TENSOR, a data type to represent tensors and a
-collection of functions to do basic manipulations with them. It is
-intended to be used as an extension of the GNU Scientific Library
+This file documents @strong{tensor}, a data type to represent tensors
+and a collection of functions to do basic manipulations with them. It
+is intended to be used as an extension of the GNU Scientific Library
 (GSL).
 
 Information about GSL can be found at the project homepage,
@@ -56,23 +56,23 @@ under the terms of the GNU Free Documentation License.
 @end ifnottex
 
 @menu
-* Introduction::                
-* Functions::                   
-* Examples::                    
-* References and Further Reading::  
-* GNU Free Documentation License::  
-* Function Index::              
-* Variable Index::              
-* Type Index::                  
-* Concept Index::               
+* Introduction::
+* Functions::
+* Examples::
+* References and Further Reading::
+* GNU Free Documentation License::
+* Function Index::
+* Variable Index::
+* Type Index::
+* Concept Index::
 @end menu
 
 @node  Introduction, Functions, Top, Top
 @chapter Introduction
 
-A tensor is a data structure which generalizes vectors and (square)
-matrices. A tensor of rank r and dimension d is a ``r-hipercube'' with
-d elements in each row (and column, etc).
+A @emph{tensor} is a data structure that generalizes vectors and
+(square) matrices. A tensor of rank @var{r} and dimension @var{d} is a
+``r-hipercube'' with @var{d} elements in each row, column, etc.
 
 The header file is @file{tensor.h}.
 
@@ -82,14 +82,24 @@ The header file is @file{tensor.h}.
 Allocation
 
 @deftypefun tensor* tensor_alloc (const unsigned int @var{rank}, const size_t @var{dimension})
-this functions allocates memory for a tensor of rank @var{rank} and
-dimension @var{dimension}, and returns a pointer to its position in memory.
+allocate memory for a tensor of rank @var{rank} and dimension
+@var{dimension}, and returns a pointer to its position in memory.
 @end deftypefun
 
 @deftypefun tensor* tensor_calloc (const unsigned int @var{rank}, const size_t @var{dimension})
-this functions allocates memory for a tensor and sets all its elements
-to 0
+allocate memory for a tensor and sets all its elements to 0
 @end deftypefun
+
+Copy
+
+@deftypefun int tensor_memcpy (tensor * @var{dest}, const tensor * @var{src})
+to do
+@end deftypefun
+
+@deftypefun int tensor_swap (tensor * @var{t1}, const tensor * @var{t2})
+to do
+@end deftypefun
+
 
 @node Examples, References and Further Reading, Functions, Top
 @chapter Examples
@@ -171,7 +181,7 @@ Any references
 
 @node GNU Free Documentation License, Function Index, References and Further Reading, Top
 @unnumbered GNU Free Documentation License
-@include fdl.texi
+@include fdl-1.3.texi
 
 @node Function Index, Variable Index, GNU Free Documentation License, Top
 @unnumbered Function Index

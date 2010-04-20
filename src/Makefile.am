@@ -35,6 +35,6 @@ test_static_SOURCES = test_static.c
 CLEANFILES = test.txt test.dat
 
 info_TEXINFOS = tensor.texi
-tensor_TEXINFOS = fdl.texi mathinclude.texi
+tensor_TEXINFOS = fdl-1.3.texi mathinclude.texi
 
 EXTRA_DIST = tensor_utilities.h templates_errfuncs.h templates_off.h templates_on.h copy_source.c file_source.c init_source.c minmax_source.c oper_source.c prop_source.c swap_source.c tensor_source.c test_source.c
