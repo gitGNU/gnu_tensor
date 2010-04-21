@@ -98,62 +98,62 @@ There are other versions of the form @code{tensor_TYPE_f} where @code{TYPE} is a
 
 Allocation
 
-@deftypefun tensor * tensor_alloc (const unsigned int @var{rank}, const size_t @var{dimension});
+@deftypefun {tensor *} tensor_alloc (const unsigned int @var{rank}, const size_t @var{dimension});
 Allocate memory for a tensor of rank @var{rank} and dimension
 @var{dimension}, and return a pointer to its position in memory.
 @end deftypefun
 
-@deftypefun tensor * tensor_calloc (const unsigned int @var{rank}, const size_t @var{dimension});
+@deftypefun {tensor *} tensor_calloc (const unsigned int @var{rank}, const size_t @var{dimension});
 Allocate memory for a tensor of rank @var{rank} and dimension
 @var{dimension}, set all its elements to 0 and return a pointer to its
 position in memory.
 @end deftypefun
 
-@deftypefun tensor * tensor_copy (tensor * @var{t});
+@deftypefun {tensor *} tensor_copy ({tensor *} @var{t});
 Create a copy of tensor @var{t} and return a pointer to its position in memory.
 @end deftypefun
 
-@deftypefun void tensor_free (tensor * @var{t});
+@deftypefun void tensor_free ({tensor *} @var{t});
 Release the memory used by tensor @var{t}.
 @end deftypefun
 
 Conversion
 
-@deftypefun gsl_matrix * tensor_2matrix (tensor * @var{t});
+@deftypefun {gsl_matrix *} tensor_2matrix ({tensor *} @var{t});
 Convert a rank 2 tensor to a gsl_matrix.
 @end deftypefun
 
-@deftypefun gsl_vector * tensor_2vector (tensor * @var{t});
+@deftypefun {gsl_vector *} tensor_2vector ({tensor *} @var{t});
 Convert a rank 1 tensor to a gsl_vector.
 @end deftypefun
 
  Get/Set elements
 
-@deftypefun double tensor_get (const tensor * @var{t}, const size_t * @var{indices});
+@deftypefun double tensor_get ({const tensor *} @var{t}, {const size_t *} @var{indices});
 t[indices]
 @end deftypefun
 
-@deftypefun void tensor_set (tensor * @var{t}, const size_t * @var{indices}, const double @var{x});
+@deftypefun void tensor_set ({tensor *} @var{t}, {const size_t *} @var{indices}, const double @var{x});
 t[indices] = x
 @end deftypefun
 
   Access pointer
 
-@deftypefun double * tensor_ptr (tensor * @var{t}, const size_t * @var{indices});
+@deftypefun {double *} tensor_ptr (tensor * @var{t}, const size_t * @var{indices});
 &t[indices]
 @end deftypefun
 
-@deftypefun const double * tensor_const_ptr (const tensor * @var{t}, const size_t * @var{indices});
+@deftypefun {const double *} tensor_const_ptr (const tensor * @var{t}, const size_t * @var{indices});
 &t[indices]  (const pointer)
 @end deftypefun
 
   Set to a value
 
-@deftypefun void tensor_set_zero (tensor * @var{t});
+@deftypefun void tensor_set_zero ({tensor *} @var{t});
 t = 0
 @end deftypefun
 
-@deftypefun void tensor_set_all (tensor * @var{t}, double @var{x});
+@deftypefun void tensor_set_all ({tensor *} @var{t}, double @var{x});
 t = x
 @end deftypefun
 
@@ -187,7 +187,7 @@ t1, t2 = t2, t1
 
   Swap indices
 
-@deftypefun tensor * tensor_swap_indices (const tensor * t_@var{ij}, size_t @var{i}, size_t @var{j});
+@deftypefun {tensor *} tensor_swap_indices ({const tensor *} t_@var{ij}, size_t @var{i}, size_t @var{j});
 t[i,j] = t[j,i]
 @end deftypefun
 
@@ -253,11 +253,11 @@ a += x
 a += x*I
 @end deftypefun
 
-@deftypefun tensor * tensor_product (const tensor * @var{a}, const tensor * @var{b});
+@deftypefun {tensor *} tensor_product (const tensor * @var{a}, const tensor * @var{b});
 a * b  (generalization of matrix product)
 @end deftypefun
 
-@deftypefun tensor * tensor_contract (const tensor * @var{t}_ij, size_t @var{i}, size_t @var{j});
+@deftypefun {tensor *} tensor_contract (const tensor * @var{t}_ij, size_t @var{i}, size_t @var{j});
 t[i1,i2,i3,...] with indices i=j.
 @end deftypefun
 
@@ -334,10 +334,13 @@ int main (void)
 @}
 @end example
 
+Compile with:
+@code{gcc -o myprog -lgslcblas -lgsl -ltensor myprog.c}
+
 @node References and Further Reading, GNU Free Documentation License, Examples, Top
 @chapter References and Further Reading
 
-Any references
+@url{http://www.gnu.org/software/gsl/manual/html_node/Vectors-and-Matrices.html}
 
 @node GNU Free Documentation License, Function Index, References and Further Reading, Top
 @unnumbered GNU Free Documentation License
