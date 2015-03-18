@@ -18,7 +18,7 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
  */
 
-int 
+int
 FUNCTION(tensor, add) (TYPE(tensor) * a, const TYPE(tensor) * b)
 {
   const unsigned int rank = a->rank;
@@ -31,7 +31,7 @@ FUNCTION(tensor, add) (TYPE(tensor) * a, const TYPE(tensor) * b)
       return 1;
     }
 
-  
+
   n = a->size;
 
   for (i = 0; i < n; i++)
@@ -41,7 +41,7 @@ FUNCTION(tensor, add) (TYPE(tensor) * a, const TYPE(tensor) * b)
 }
 
 
-int 
+int
 FUNCTION(tensor, sub) (TYPE(tensor) * a, const TYPE(tensor) * b)
 {
   const unsigned int rank = a->rank;
@@ -54,7 +54,7 @@ FUNCTION(tensor, sub) (TYPE(tensor) * a, const TYPE(tensor) * b)
       return 1;
     }
 
-  
+
   n = a->size;
 
   for (i = 0; i < n; i++)
@@ -64,7 +64,7 @@ FUNCTION(tensor, sub) (TYPE(tensor) * a, const TYPE(tensor) * b)
 }
 
 
-int 
+int
 FUNCTION(tensor, mul_elements) (TYPE(tensor) * a,
                                 const TYPE(tensor) * b)
 {
@@ -78,7 +78,7 @@ FUNCTION(tensor, mul_elements) (TYPE(tensor) * a,
       return 1;
     }
 
-  
+
   n = a->size;
 
   for (i = 0; i < n; i++)
@@ -88,7 +88,7 @@ FUNCTION(tensor, mul_elements) (TYPE(tensor) * a,
 }
 
 
-int 
+int
 FUNCTION(tensor, div_elements) (TYPE(tensor) * a,
                                 const TYPE(tensor) * b)
 {
@@ -102,7 +102,7 @@ FUNCTION(tensor, div_elements) (TYPE(tensor) * a,
       return 1;
     }
 
-  
+
   n = a->size;
 
   for (i = 0; i < n; i++)
@@ -112,7 +112,7 @@ FUNCTION(tensor, div_elements) (TYPE(tensor) * a,
 }
 
 
-int 
+int
 FUNCTION(tensor, scale) (TYPE(tensor) * a, const double x)
 {
   size_t i, n;
@@ -126,7 +126,7 @@ FUNCTION(tensor, scale) (TYPE(tensor) * a, const double x)
 }
 
 
-int 
+int
 FUNCTION(tensor, add_constant) (TYPE(tensor) * a, const double x)
 {
   size_t i, n;
@@ -140,7 +140,7 @@ FUNCTION(tensor, add_constant) (TYPE(tensor) * a, const double x)
 }
 
 
-int 
+int
 FUNCTION(tensor, add_diagonal) (TYPE(tensor) * a, const double x)
 {
   unsigned int i, j;
@@ -254,11 +254,11 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
     i = j;
     j = k;
   }
-  
+
   step = quick_pow(dimension, i) + quick_pow(dimension, j);
 
   indices = (size_t *) malloc(rank * sizeof(size_t));
-  
+
   for (pos = 0; pos < n; pos++)
     {
       sum = 0;
@@ -275,7 +275,7 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
 
       t_ii->data[pos] = sum;
     }
-  
+
   free(indices);
 
   return t_ii;
