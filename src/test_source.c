@@ -538,7 +538,7 @@ FUNCTION(test, text) (void)
             indices[0] = i;  indices[1] = j;  indices[2] = k;
             FUNCTION(tensor, set) (t, indices, (BASE) counter);
           }
-    
+
     FUNCTION(tensor, fprintf) (f, t, OUT_FORMAT);
     fclose(f);
   }

@@ -211,35 +211,34 @@ FUNCTION(tensor, product) (const TYPE(tensor) * a,
  *
  * This function, unlike the others above, is not trivial. The
  * algorithm is based on the correspondence of the indices in the
- * tensor and the serialized correspondig position.
+ * tensor and the serialized corresponding position.
  */
 TYPE(tensor) *
 FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
                             size_t i, size_t j)
 {
   size_t dimension;
+  unsigned int rank;
   size_t n;
 
-  size_t l;
-  unsigned int n_digits;
+  size_t k;
   size_t step;
-  size_t * pos_in_base;
+  size_t * indices;
   size_t pos;
-  size_t init;
+  size_t pos_00;
   ATOMIC sum;
-  
 
-  if (i >= t_ij->rank || j >= t_ij->rank || i == j)
+  dimension = t_ij->dimension;  /* to write less later */
+  rank = t_ij->rank;
+
+  if (i >= rank || j >= rank || i == j)
     {
       GSL_ERROR_VAL("bad indices to contract tensor", GSL_EINVAL, 0);
       return NULL;
     }
 
-  dimension = t_ij->dimension;  /* to write less later */
-
-  /* Create a new tensor with the appropiate rank */
-  TYPE(tensor) * t_ii =
-    FUNCTION(tensor, alloc) (t_ij->rank - 2, dimension);
+  /* Create a new tensor with the appropriate rank */
+  TYPE(tensor) * t_ii = FUNCTION(tensor, alloc) (rank - 2, dimension);
 
   if (t_ii == NULL)
     {
@@ -255,40 +254,37 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
    * for clarity in the algorithm (but potentially confusing!)
    * Now the last two indices, for instance, will be 1,0.
    */
-  i = (t_ij->rank - 1) - i;
-  j = (t_ij->rank - 1) - j;
-  
+  i = (rank - 1) - i;
+  j = (rank - 1) - j;
+
   if (i > j) {         /* swap indices if necessary, so j > i */
-    size_t k = i;
+    k = i;
     i = j;
     j = k;
   }
   
   step = quick_pow(dimension, i) + quick_pow(dimension, j);
-  
-  n_digits = t_ii->rank;
-  
-  pos_in_base = (size_t *) malloc((n_digits + 2) * sizeof(size_t));
+
+  indices = (size_t *) malloc(rank * sizeof(size_t));
   
   for (pos = 0; pos < n; pos++)
     {
-      n_digits = t_ii->rank;  /* we must reset it! */
       sum = 0;
 
-      position2index(n_digits, dimension, pos, pos_in_base);
+      position2index(rank - 2, dimension, pos, indices);
 
-      vec_insert(pos_in_base, n_digits, i, 0);  n_digits++;
-      vec_insert(pos_in_base, n_digits, j, 0);  n_digits++;
-      
-      init = index2position(n_digits, dimension, pos_in_base);
+      vec_insert(indices, rank - 2, i, 0);
+      vec_insert(indices, rank - 1, j, 0);
 
-      for (l = 0; l < dimension; l++)
-        sum += t_ij->data[init + step * l];
+      pos_00 = index2position(rank, dimension, indices);
+
+      for (k = 0; k < dimension; k++)
+        sum += t_ij->data[pos_00 + step * k];
 
       t_ii->data[pos] = sum;
     }
   
-  free(pos_in_base);
+  free(indices);
 
   return t_ii;
 }
