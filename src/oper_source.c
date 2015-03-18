@@ -177,7 +177,7 @@ FUNCTION(tensor, product) (const TYPE(tensor) * a,
                            const TYPE(tensor) * b)
 {
   size_t i, j;
-  size_t n1, n2;
+  size_t position;
 
   if (a->dimension != b->dimension)
     {
@@ -189,19 +189,11 @@ FUNCTION(tensor, product) (const TYPE(tensor) * a,
   TYPE(tensor) * c =
     FUNCTION(tensor, alloc) (a->rank + b->rank, a->dimension);
 
-  
-  // number of elements of input tensors
-  n1 = a->size;
-  n2 = b->size;
-  
-  for (i = 0; i < n1; i++)
-    for (j = 0; j < n2; j++)
-      {
-        size_t position = n2*i + j;
-        
-        c->data[position] = a->data[i] * b->data[j];
-      }
-  
+  position = 0;
+  for (i = 0; i < a->size; i++)
+    for (j = 0; j < b->size; j++)
+      c->data[position++] = a->data[i] * b->data[j];
+
   return c;
 }
 
