@@ -421,7 +421,7 @@ FUNCTION(test, func) (void)
                     if (r != z)
                       status = 1;
                   }
-      
+
       gsl_test(status, NAME(tensor) "_product tensorial product");
 
       FUNCTION(tensor, free) (c);
@@ -429,17 +429,47 @@ FUNCTION(test, func) (void)
 
     /* Index contraction */
     {
-      TYPE(tensor) * tt = FUNCTION(tensor, contract) (a, 0, 1);
+      TYPE(tensor) * t01 = FUNCTION(tensor, contract) (a, 0, 1);
+      TYPE(tensor) * t02 = FUNCTION(tensor, contract) (a, 0, 2);
+      TYPE(tensor) * t12 = FUNCTION(tensor, contract) (a, 1, 2);
 
-      gsl_test(tt->data == 0,
+      gsl_test(t01->data == 0 || t02->data == 0 || t12->data == 0,
                NAME(tensor) "_contract returns valid pointer");
-      gsl_test(tt->rank != RANK-2,
+      gsl_test(t01->rank != RANK-2 || t02->rank != RANK-2 ||
+               t12->rank != RANK-2,
                NAME(tensor) "_contract returns valid rank");
-      gsl_test(tt->dimension != DIMENSION,
+      gsl_test(t01->dimension != DIMENSION || t02->dimension != DIMENSION ||
+               t12->dimension != DIMENSION,
                NAME (tensor) "_contract returns valid dimension");
 
+      status = 0;
 
-      FUNCTION(tensor, free) (tt);
+      for (i = 0; i < DIMENSION; i++)
+        {
+          BASE sum01 = 0;
+          BASE sum02 = 0;
+          BASE sum12 = 0;
+          for (j = 0; j < DIMENSION; j++)
+            {
+              indices[0] = j;  indices[1] = j;  indices[2] = i;
+              sum01 += FUNCTION(tensor, get) (a, indices);
+
+              indices[0] = j;  indices[1] = i;  indices[2] = j;
+              sum02 += FUNCTION(tensor, get) (a, indices);
+
+              indices[0] = i;  indices[1] = j;  indices[2] = j;
+              sum12 += FUNCTION(tensor, get) (a, indices);
+            }
+          if (t01->data[i] != sum01 || t02->data[i] != sum02 ||
+              t12->data[i] != sum12)
+            status = 1;
+        }
+
+      gsl_test(status, NAME(tensor) "_contract indices contraction");
+
+      FUNCTION(tensor, free) (t01);
+      FUNCTION(tensor, free) (t02);
+      FUNCTION(tensor, free) (t12);
     }
 
     /* Swap indices */
