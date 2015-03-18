@@ -225,7 +225,6 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
   size_t step;
   size_t * pos_in_base;
   size_t pos;
-  size_t old_pos;  
   size_t init;
   ATOMIC sum;
   
@@ -284,10 +283,7 @@ FUNCTION(tensor, contract) (const TYPE(tensor) * t_ij,
       init = index2position(n_digits, dimension, pos_in_base);
 
       for (l = 0; l < dimension; l++)
-        {
-          old_pos = init + step * l;
-          sum += t_ij->data[old_pos];
-        }
+        sum += t_ij->data[init + step * l];
 
       t_ii->data[pos] = sum;
     }
